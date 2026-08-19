@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             const url = `https://text.pollinations.ai/${encodeURIComponent(text)}`;
-            const res = await fetch(url);
+            const res = await fetch(url, { credentials: 'omit' });
             const replyText = await res.text();
             
             if (replyText) {
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const finalPrompt = `Please explain the following code clearly and add comments:\n\`\`\`python\n${code}\n\`\`\``;
             const url = `https://text.pollinations.ai/${encodeURIComponent(finalPrompt)}`;
-            const res = await fetch(url);
+            const res = await fetch(url, { credentials: 'omit' });
             const replyText = await res.text();
             
             if (replyText) {
