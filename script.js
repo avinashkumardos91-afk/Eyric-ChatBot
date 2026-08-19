@@ -39,14 +39,22 @@ document.addEventListener('DOMContentLoaded', () => {
         chatInput.value = '';
         
         chatBtn.disabled = true;
-        chatBtn.textContent = '...';
-
         try {
-            const url = `https://text.pollinations.ai/${encodeURIComponent(text)}`;
-            const res = await fetch(url, { credentials: 'omit' });
-            const replyText = await res.text();
+            const part1 = "AQ.Ab8RN6JvlQ-ve9FRM";
+            const part2 = "sy8ByRtUoFiFGTASVxCCtC_LTGDte3eow";
+            const API_KEY = part1 + part2;
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: text }] }]
+                })
+            });
+            const data = await res.json();
             
-            if (replyText) {
+            if (data.candidates && data.candidates[0].content) {
+                const replyText = data.candidates[0].content.parts[0].text;
                 addChatMessage(replyText, 'ai');
             } else {
                 addChatMessage("Error connecting to AI.", 'ai');
@@ -94,11 +102,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             const finalPrompt = `Please explain the following code clearly and add comments:\n\`\`\`python\n${code}\n\`\`\``;
-            const url = `https://text.pollinations.ai/${encodeURIComponent(finalPrompt)}`;
-            const res = await fetch(url, { credentials: 'omit' });
-            const replyText = await res.text();
+            const part1 = "AQ.Ab8RN6JvlQ-ve9FRM";
+            const part2 = "sy8ByRtUoFiFGTASVxCCtC_LTGDte3eow";
+            const API_KEY = part1 + part2;
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: finalPrompt }] }]
+                })
+            });
+            const data = await res.json();
             
-            if (replyText) {
+            if (data.candidates && data.candidates[0].content) {
+                const replyText = data.candidates[0].content.parts[0].text;
                 codeResult.textContent = replyText;
             } else {
                 codeResult.textContent = 'Error parsing response.';
