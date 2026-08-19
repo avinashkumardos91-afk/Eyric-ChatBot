@@ -38,17 +38,17 @@ def chat():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route('/api/visual', methods=['POST'])
+@app.route('/api/visual', methods=['GET'])
 def visual():
     """Generate image via Pollinations API"""
-    data = request.json
-    prompt = data.get('prompt', '')
+    prompt = request.args.get('prompt', '')
     
     encoded_prompt = urllib.parse.quote(prompt)
     image_url = f"https://image.pollinations.ai/prompt/{encoded_prompt}"
     
-    # We just return the image URL to the frontend so it can render an <img> tag!
-    return jsonify({"image_url": image_url})
+    # Redirect straight to the image URL so the <img> tag loads it directly
+    from flask import redirect
+    return redirect(image_url)
 
 @app.route('/api/explain', methods=['POST'])
 def explain():

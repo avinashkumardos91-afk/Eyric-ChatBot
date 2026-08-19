@@ -45,11 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const res = await fetch('/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: text })
+                body: JSON.stringify({ prompt: text })
             });
             const data = await res.json();
-            if (data.reply) {
-                addChatMessage(data.reply, 'ai');
+            if (data.response) {
+                addChatMessage(data.response, 'ai');
             } else {
                 addChatMessage("Error connecting to AI.", 'ai');
             }
@@ -102,8 +102,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             const data = await res.json();
             
-            if (data.explanation) {
-                codeResult.textContent = data.explanation;
+            if (data.response) {
+                codeResult.textContent = data.response;
             } else {
                 codeResult.textContent = 'Error parsing response.';
             }
