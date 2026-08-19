@@ -40,10 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         chatBtn.disabled = true;
         try {
-            const part1 = "AQ.Ab8RN6JvlQ-ve9FRM";
-            const part2 = "sy8ByRtUoFiFGTASVxCCtC_LTGDte3eow";
+            const part1 = "AQ.Ab8RN6IAVLiVVa_FCe";
+            const part2 = "XwdLpEuZpnyX-pDQUn1YCYRgmrBY7jKg";
             const API_KEY = part1 + part2;
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${API_KEY}`;
             const res = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -102,10 +102,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             const finalPrompt = `Please explain the following code clearly and add comments:\n\`\`\`python\n${code}\n\`\`\``;
-            const part1 = "AQ.Ab8RN6JvlQ-ve9FRM";
-            const part2 = "sy8ByRtUoFiFGTASVxCCtC_LTGDte3eow";
+            const part1 = "AQ.Ab8RN6IAVLiVVa_FCe";
+            const part2 = "XwdLpEuZpnyX-pDQUn1YCYRgmrBY7jKg";
             const API_KEY = part1 + part2;
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${API_KEY}`;
             const res = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
