@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EYRIC-RYTHOS AI Command Center</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Load a nice modern font -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="app-container">
+        <nav class="sidebar glass-panel">
+            <h1 class="logo-text">EYRIC <span class="gradient-text">AI</span></h1>
+            <ul class="nav-links">
+                <li class="active" data-target="chat-view">General Chat</li>
+                <li data-target="visual-view">Visual Generation</li>
+                <li data-target="code-view">Code Explainer</li>
+            </ul>
+        </nav>
+
+        <main class="main-content glass-panel">
+            
+            <!-- Chat View -->
+            <section id="chat-view" class="view active-view">
+                <div class="header">
+                    <h2>Intelligent Chat</h2>
+                    <p>Powered by NVIDIA Llama 3.1</p>
+                </div>
+                <div class="output-area" id="chat-output">
+                    <div class="message ai-message">Hello! I am your EYRIC AI Assistant. How can I help you today?</div>
+                </div>
+                <div class="input-area">
+                    <input type="text" id="chat-input" placeholder="Type your message here..." autocomplete="off">
+                    <button class="primary-btn" id="chat-btn">Send</button>
+                </div>
+            </section>
+
+            <!-- Visual View -->
+            <section id="visual-view" class="view">
+                <div class="header">
+                    <h2>Visual Generator</h2>
+                    <p>High-Fidelity Image Synthesis</p>
+                </div>
+                <div class="output-area visual-output" id="visual-output">
+                    <!-- Image will appear here -->
+                    <div class="placeholder-text">Enter a prompt to generate stunning visuals.</div>
+                </div>
+                <div class="input-area">
+                    <input type="text" id="visual-input" placeholder="A futuristic city in the clouds..." autocomplete="off">
+                    <button class="primary-btn" id="visual-btn">Generate</button>
+                </div>
+            </section>
+
+            <!-- Code Explainer View -->
+            <section id="code-view" class="view">
+                <div class="header">
+                    <h2>Code Explainer</h2>
+                    <p>Paste code to get expert-level comments and breakdown.</p>
+                </div>
+                <div class="output-area code-output" id="code-output">
+                    <pre><code id="code-result-text">Waiting for code...</code></pre>
+                </div>
+                <div class="input-area code-input-area">
+                    <textarea id="code-input" placeholder="Paste your Python/JS code here..."></textarea>
+                    <button class="primary-btn" id="code-btn">Explain Code</button>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

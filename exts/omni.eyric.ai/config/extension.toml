@@ -1,0 +1,21 @@
+[core]
+reloadable = true
+order = 0
+
+[package]
+version = "1.0.0"
+category = "Eyric AI"
+title = "Eyric AI Integration"
+description = "An Omniverse Extension to integrate Eyric AI into your workspace."
+authors = ["Avina"]
+repository = ""
+keywords = ["eyric", "ai", "integration"]
+changelog = "docs/CHANGELOG.md"
+readme = "docs/README.md"
+icon = "data/icon.png"
+
+[dependencies]
+"omni.ui" = {}
+
+[[python.module]]
+name = "omni.eyric.ai"
