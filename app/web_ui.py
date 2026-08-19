@@ -15,25 +15,15 @@ def index():
 
 @app.route('/api/chat', methods=['POST'])
 def chat():
-    """Proxy chat requests to NVIDIA API (simulating the local chat for speed in UI)"""
+    """Proxy chat requests to Pollinations Text API (Free, no keys needed)"""
     data = request.json
     prompt = data.get('prompt', '')
     
-    headers = {
-        "Authorization": f"Bearer {NVIDIA_API_KEY}",
-        "Content-Type": "application/json"
-    }
-    payload = {
-        "model": "meta/llama-3.1-8b-instruct",
-        "messages": [{"role": "user", "content": prompt}],
-        "temperature": 0.7,
-        "max_tokens": 1024
-    }
-    
     try:
-        response = requests.post(NVIDIA_API_URL, headers=headers, json=payload, timeout=15)
+        url = f"https://text.pollinations.ai/{urllib.parse.quote(prompt)}"
+        response = requests.get(url, timeout=30)
         response.raise_for_status()
-        reply = response.json()['choices'][0]['message']['content']
+        reply = response.text
         return jsonify({"response": reply})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -52,27 +42,17 @@ def visual():
 
 @app.route('/api/explain', methods=['POST'])
 def explain():
-    """Use NVIDIA Llama to explain code snippets"""
+    """Use Pollinations API to explain code snippets"""
     data = request.json
     code_snippet = data.get('code', '')
     
-    prompt = f"Please explain the following code and add comments:\n```python\n{code_snippet}\n```"
-    
-    headers = {
-        "Authorization": f"Bearer {NVIDIA_API_KEY}",
-        "Content-Type": "application/json"
-    }
-    payload = {
-        "model": "meta/llama-3.1-8b-instruct",
-        "messages": [{"role": "user", "content": prompt}],
-        "temperature": 0.2,
-        "max_tokens": 2048
-    }
+    prompt = f"Please explain the following code clearly and add comments:\n```python\n{code_snippet}\n```"
     
     try:
-        response = requests.post(NVIDIA_API_URL, headers=headers, json=payload, timeout=30)
+        url = f"https://text.pollinations.ai/{urllib.parse.quote(prompt)}"
+        response = requests.get(url, timeout=45)
         response.raise_for_status()
-        reply = response.json()['choices'][0]['message']['content']
+        reply = response.text
         return jsonify({"response": reply})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
