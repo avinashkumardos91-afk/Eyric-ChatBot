@@ -42,14 +42,12 @@ document.addEventListener('DOMContentLoaded', () => {
         chatBtn.textContent = '...';
 
         try {
-            const res = await fetch('/api/chat', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt: text })
-            });
-            const data = await res.json();
-            if (data.response) {
-                addChatMessage(data.response, 'ai');
+            const url = `https://text.pollinations.ai/${encodeURIComponent(text)}`;
+            const res = await fetch(url);
+            const replyText = await res.text();
+            
+            if (replyText) {
+                addChatMessage(replyText, 'ai');
             } else {
                 addChatMessage("Error connecting to AI.", 'ai');
             }
@@ -95,15 +93,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const prompt = `Please explain the following code and add comments:\n\`\`\`python\n${code}\n\`\`\``;
 
         try {
-            const res = await fetch('/api/explain', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ code: code })
-            });
-            const data = await res.json();
+            const finalPrompt = `Please explain the following code clearly and add comments:\n\`\`\`python\n${code}\n\`\`\``;
+            const url = `https://text.pollinations.ai/${encodeURIComponent(finalPrompt)}`;
+            const res = await fetch(url);
+            const replyText = await res.text();
             
-            if (data.response) {
-                codeResult.textContent = data.response;
+            if (replyText) {
+                codeResult.textContent = replyText;
             } else {
                 codeResult.textContent = 'Error parsing response.';
             }
